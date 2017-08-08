@@ -1,0 +1,41 @@
+---
+title: "FSRLHaiti"
+author: "FishTales4967"
+date: "August 7, 2017"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(leaflet) 
+```
+
+## Create Leaflet Map
+ August 8, 2017
+
+```{r Haiti}
+df <- data.frame(lat = c(18.58,18.51553, 18.53884),lng = c(-72.2925,-72.6321, -72.336325))
+#placenames<- c("Toussaint Louverture International Airport","Faculté des Sciences de Réhabilitation de Léogâne","Université Episcopale d'Haïti (UNEPH)")
+HaitiSites <-c(
+  "<a href='http://pap.aan-haiti.com/'>Toussaint Louverture International Airport</a>", 
+  "<a href='http://www.haitirehab.org/'>Faculté des Sciences de Réhabilitation de Léogâne</a>",
+  "<a href='http://www.uneph.edu.ht/'>Université Episcopale d'Haïti (UNEPH)</a>"
+  )
+
+Airportic <- makeIcon(iconUrl = "I:/Course9/LeafletMap/ToussaintLouvertureCropped.png",
+  iconWidth = 55, iconHeight = 55,
+  iconAnchorX =12, iconAnchorY = 42)
+FSRLic <- makeIcon( iconUrl = "I:/Course9/LeafletMap/FSRL_shield-Green-NoBG.png",
+  iconWidth = 55, iconHeight = 55,
+  iconAnchorX = 12, iconAnchorY = 52)
+UNEPHic <- makeIcon(iconUrl = "I:/Course9/LeafletMap/UNEPH.jpeg",
+  iconWidth = 55, iconHeight = 55,
+  iconAnchorX = 12, iconAnchorY = 42)
+iconLst <- iconList(Airportic,FSRLic,UNEPHic)
+hMap <-  df %>% leaflet() %>%  addTiles()
+hMap = hMap   %>% addMarkers( lat=df$lat, lng= df$lng,icon=iconLst,popup=HaitiSites) 
+
+#hMap = hMap  %>% setView(lng = -72.45, lat = 18.51, zoom = 11)
+hMap
+```
+<br>
+### Run Date 8-8-2017
